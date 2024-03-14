@@ -1,0 +1,111 @@
+ORG 0H
+LOOP:
+JB P1.0, FIRST_CONDITION
+SJMP INITIAL_CONDITIONS
+
+
+
+FIRST_CONDITION:
+MOV TMOD, #01H  
+MOV TH0, #0FBH   
+MOV TL0, #94H    
+SETB TR0         
+
+
+  JNB TF0, $    
+  CLR TF0        
+  CPL P2.6       
+  INC A
+  
+  CJNE A, #02H, FIRST_CONDITION
+  CPL P2.7
+  MOV A, #0H
+
+  
+  SJMP LOOP
+
+
+
+INITIAL_CONDITIONS:
+clr P2.6
+clr P2.7
+SECOND_CONDITION:
+MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+
+  JNB TF0, $     ;
+  CLR TF0
+
+ MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+
+  JNB TF0, $     
+  CLR TF0
+
+ MOV TMOD, #01H  
+MOV TH0, #0FDH  
+MOV TL0, #0CAH    
+SETB TR0         
+
+  JNB TF0, $     
+  CLR TF0
+
+CPL P2.6
+
+MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+
+  JNB TF0, $     
+  CLR TF0
+
+CPL P2.6
+
+MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+
+  JNB TF0, $     
+  CLR TF0
+SJMP BURDAN
+DEVAMOGLUM:
+SJMP LOOP
+BURDAN:
+MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+
+  JNB TF0, $     
+  CLR TF0
+ CPL P2.7
+ MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+  JNB TF0, $     
+  CLR TF0
+ CPL P2.6
+ MOV TMOD, #01H  
+MOV TH0, #0FDH   
+MOV TL0, #0CAH    
+SETB TR0         
+  JNB TF0, $     
+  CLR TF0
+ CPL P2.6
+ CPL P2.7
+ SJMP DEVAMOGLUM
+
+
+
+  
+END
+
+
+
